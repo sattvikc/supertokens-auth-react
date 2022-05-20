@@ -65,5 +65,9 @@ jobs:
               run: cd test/server/ && npm i -d --force && npm i --force github:${{ github.event.inputs.nodeRepoOwnerName }}/supertokens-node#${{ github.event.inputs.nodeBranchName }}
             - name: Setting up supertokens-root test environment
               run: cd ../supertokens-root && bash ./utils/setupTestEnv --local
+            - name: Setup tmate session
+              uses: mxschmitt/action-tmate@v3
+              with:
+                  sudo: false
             - name: Run tests
               run: npm run test
