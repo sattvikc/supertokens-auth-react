@@ -25,6 +25,8 @@ import HydrogenTheme from "./Themes/Hydrogen";
 import DarkTheme from "./Themes/Dark";
 import { CSSObject } from "@emotion/react";
 import Passwordless from "../../../recipe/passwordless";
+import { CookieHandlerInterface } from "supertokens-website/utils/cookieHandler/types";
+import { WindowHandlerInterface } from "supertokens-website/utils/windowHandler/types";
 
 /*
  * This application is used with the purpose of illustrating Supertokens with typescript.
@@ -71,6 +73,132 @@ SuperTokens.init({
         appName: "SuperTokens Demo App",
         apiDomain: getApiDomain(),
         websiteDomain: window.location.origin,
+    },
+    cookieHandler: function (_: CookieHandlerInterface) {
+        return {
+            getCookie: async function () {
+                return document.cookie;
+            },
+            getCookieSync: function () {
+                return document.cookie;
+            },
+            setCookie: async function (newCookie: string) {
+                document.cookie = newCookie;
+            },
+            setCookieSync: function (newCookie: string) {
+                document.cookie = newCookie;
+            },
+        };
+    },
+    windowHandler: function (_: WindowHandlerInterface) {
+        return {
+            getDocument: () => {
+                return window.document;
+            },
+            history: {
+                getState: () => {
+                    return window.history.state;
+                },
+                replaceState: (data: any, unused: string, url?: string | null) => {
+                    window.history.replaceState(data, unused, url);
+                },
+            },
+            location: {
+                assign: (url: string | URL) => {
+                    /**
+                     * The type for assign accepts URL | string but when building
+                     * it complains about only accepting a string. To prevent this
+                     * we use any
+                     */
+                    window.location.assign(url as any);
+                },
+                getHash: () => {
+                    return window.location.hash;
+                },
+                getHostName: () => {
+                    return window.location.hostname;
+                },
+                getHref: () => {
+                    return window.location.href;
+                },
+                getOrigin: () => {
+                    return window.location.origin;
+                },
+                getPathName: () => {
+                    return window.location.pathname;
+                },
+                getSearch: () => {
+                    return window.location.search;
+                },
+                setHref: (newHref: string) => {
+                    window.location.href = newHref;
+                },
+            },
+            localStorage: {
+                clear: async () => {
+                    return window.localStorage.clear();
+                },
+                clearSync: () => {
+                    return window.localStorage.clear();
+                },
+                getItem: async (key: string) => {
+                    return window.localStorage.getItem(key);
+                },
+                getItemSync: (key: string) => {
+                    return window.localStorage.getItem(key);
+                },
+                key: async (index: number) => {
+                    return window.localStorage.key(index);
+                },
+                keySync: (index: number) => {
+                    return window.localStorage.key(index);
+                },
+                removeItem: async (key: string) => {
+                    return window.localStorage.removeItem(key);
+                },
+                removeItemSync: (key: string) => {
+                    return window.localStorage.removeItem(key);
+                },
+                setItem: async (key: string, value: string) => {
+                    return window.localStorage.setItem(key, value);
+                },
+                setItemSync: (key: string, value: string) => {
+                    return window.localStorage.setItem(key, value);
+                },
+            },
+            sessionStorage: {
+                clear: async () => {
+                    return window.localStorage.clear();
+                },
+                clearSync: () => {
+                    return window.localStorage.clear();
+                },
+                getItem: async (key: string) => {
+                    return window.localStorage.getItem(key);
+                },
+                getItemSync: (key: string) => {
+                    return window.localStorage.getItem(key);
+                },
+                key: async (index: number) => {
+                    return window.localStorage.key(index);
+                },
+                keySync: (index: number) => {
+                    return window.localStorage.key(index);
+                },
+                removeItem: async (key: string) => {
+                    return window.localStorage.removeItem(key);
+                },
+                removeItemSync: (key: string) => {
+                    return window.localStorage.removeItem(key);
+                },
+                setItem: async (key: string, value: string) => {
+                    return window.localStorage.setItem(key, value);
+                },
+                setItemSync: (key: string, value: string) => {
+                    return window.localStorage.setItem(key, value);
+                },
+            },
+        };
     },
     recipeList,
 });
