@@ -11,7 +11,7 @@ import {
     RecipeFunctionOptions,
     RecipeInterface,
 } from "supertokens-web-js/recipe/thirdpartypasswordless";
-import { UserType } from "supertokens-web-js/recipe/thirdparty";
+import { ThirdPartyUserType } from "supertokens-web-js/recipe/thirdparty";
 export default class Wrapper {
     static init(
         config: UserInput
@@ -41,7 +41,7 @@ export default class Wrapper {
     static thirdPartySignInAndUp(input?: { userContext?: any }): Promise<
         | {
               status: "OK";
-              user: UserType;
+              user: ThirdPartyUserType;
               createdNewUser: boolean;
               fetchResponse: Response;
           }
