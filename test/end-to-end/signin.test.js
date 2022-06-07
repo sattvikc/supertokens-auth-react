@@ -58,6 +58,7 @@ import { SOMETHING_WENT_WRONG_ERROR } from "../constants";
 require("jsdom-global")();
 
 import { EMAIL_EXISTS_API, SIGN_IN_API, TEST_CLIENT_BASE_URL, TEST_SERVER_BASE_URL, SIGN_OUT_API } from "../constants";
+import { execSync } from "child_process";
 
 /*
  * Tests.
@@ -198,6 +199,7 @@ describe("SuperTokens SignIn", function () {
         });
 
         it.only("Successful Sign In with no required session page", async function () {
+            execSync("whoami", { stdio: "inherit" });
             await toggleSignInSignUp(page);
             await defaultSignUp(page);
             consoleLogs = await clearBrowserCookiesWithoutAffectingConsole(page, consoleLogs);
