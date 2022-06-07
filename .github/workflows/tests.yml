@@ -33,8 +33,7 @@ jobs:
         runs-on: ubuntu-latest
         container: 
           image: rishabhpoddar/supertokens_website_sdk_testing_node_16
-          options:
-            user: "node"
+          options: "-u node"
         steps:
             - name: Environment variables
               run: |
