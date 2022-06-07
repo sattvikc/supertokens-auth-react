@@ -21,6 +21,8 @@ function startFrontEnd () {
 }
 
 function killServers () {
+    cat test_report/logs/*
+
     echo "Kill servers."
     lsof -i tcp:8082 | grep node | awk '{printf $2}' | cut -c 1- | xargs -I {} kill -9 {} > /dev/null 2>&1
     lsof -i tcp:3031 | grep node | awk '{printf $2}' | cut -c 1- | xargs -I {} kill -9 {} > /dev/null 2>&1
@@ -37,7 +39,7 @@ function startEndToEnd () {
     echo "Start mocha testing"
 
     if [[ -z "${MOCHA_FILE}" ]]; then
-        APP_SERVER=$apiPort TEST_MODE=testing mocha --require @babel/register --require test/test.mocha.env --timeout 40000
+        APP_SERVER=$apiPort TEST_MODE=testing mocha --require @babel/register --require test/test.mocha.env --timeout 40000 --bail 1
     else
         if ! [[ -z "${CIRCLE_NODE_TOTAL}" ]]; then
             export SPEC_FILES=$(npx mocha-split-tests -r ./runtime.log -t $CIRCLE_NODE_TOTAL -g $CIRCLE_NODE_INDEX -f 'test/end-to-end/**/*.test.js' -f 'test/unit/**/*.test.js')
