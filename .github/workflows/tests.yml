@@ -42,8 +42,8 @@ jobs:
                   echo "Core Branch: ${{ github.event.inputs.coreBranchName }}"
                   echo "Node Owner: ${{ github.event.inputs.nodeRepoOwnerName }}"
                   echo "Node Branch: ${{ github.event.inputs.nodeBranchName }}"
-            - run: useradd -Mu 1004 node
-            - run: su node
+            - run: useradd -Mu 1001 node
+            - run: su - node
             - uses: actions/checkout@v2
               with:
                   persist-credentials: false
