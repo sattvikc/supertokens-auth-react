@@ -199,7 +199,6 @@ describe("SuperTokens SignIn", function () {
         });
 
         it.only("Successful Sign In with no required session page", async function () {
-            execSync("whoami", { stdio: "inherit" });
             await toggleSignInSignUp(page);
             await defaultSignUp(page);
             consoleLogs = await clearBrowserCookiesWithoutAffectingConsole(page, consoleLogs);
