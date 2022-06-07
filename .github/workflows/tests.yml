@@ -33,6 +33,7 @@ jobs:
         runs-on: ubuntu-latest
         container: 
           image: rishabhpoddar/supertokens_website_sdk_testing_node_16
+          options: "-u 1001"
         steps:
             - name: Environment variables
               run: |
@@ -42,8 +43,6 @@ jobs:
                   echo "Core Branch: ${{ github.event.inputs.coreBranchName }}"
                   echo "Node Owner: ${{ github.event.inputs.nodeRepoOwnerName }}"
                   echo "Node Branch: ${{ github.event.inputs.nodeBranchName }}"
-            - run: useradd -Mu 1001 node
-            - run: su - node
             - uses: actions/checkout@v2
               with:
                   persist-credentials: false
@@ -51,7 +50,6 @@ jobs:
               run: sed -i 's/AUTH0_EMAIL = "bradparishdoh@gmail.com"/AUTH0_EMAIL = "${{ secrets.AUTH0_EMAIL }}"/g' test/.env.js && sed -i 's/AUTH0_PASSWORD = "ow93jduDSje00asd"/AUTH0_PASSWORD = "${{ secrets.AUTH0_PASSWORD }}"/g' test/.env.js
             - name: Make git use https instead of ssh
               run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
-            - run: whoami
             - run: ls -la
             - run: npm run init
             - name: Cloning supertokens-root
