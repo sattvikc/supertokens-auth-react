@@ -39,7 +39,7 @@ function startEndToEnd () {
     echo "Start mocha testing"
 
     if [[ -z "${MOCHA_FILE}" ]]; then
-        APP_SERVER=$apiPort TEST_MODE=testing mocha --require @babel/register --require test/test.mocha.env --timeout 40000 --bail
+        APP_SERVER=$apiPort TEST_MODE=testing mocha --require @babel/register --require test/test.mocha.env --timeout 40000
     else
         if ! [[ -z "${CIRCLE_NODE_TOTAL}" ]]; then
             export SPEC_FILES=$(npx mocha-split-tests -r ./runtime.log -t $CIRCLE_NODE_TOTAL -g $CIRCLE_NODE_INDEX -f 'test/end-to-end/**/*.test.js' -f 'test/unit/**/*.test.js')
@@ -83,6 +83,8 @@ startEndToEnd &
 startFrontEnd >> test_report/logs/frontend.log 2>&1
 
 if ! [[ -z "${RUN_REACT_16_TESTS}" ]]; then
+    echo "Running react 16 tests";
+
     (cd test/server/ && TEST_MODE=testing INSTALL_PATH=../../../supertokens-root NODE_PORT=8082 node . >> ../../test_report/logs/backend-react16.log 2>&1 &)
 
     IS_REACT_16=true RUN_RRD5=true startEndToEnd &

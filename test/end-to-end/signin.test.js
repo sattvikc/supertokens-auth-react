@@ -197,7 +197,7 @@ describe("SuperTokens SignIn", function () {
             ]);
         });
 
-        it("Successful Sign In with no required session page", async function () {
+        it.only("Successful Sign In with no required session page", async function () {
             await toggleSignInSignUp(page);
             await defaultSignUp(page);
             consoleLogs = await clearBrowserCookiesWithoutAffectingConsole(page, consoleLogs);
