@@ -53,7 +53,7 @@ jobs:
             - run: whoami
             - run: npm run init
             - name: Cloning supertokens-root
-              run: cd ../ && git clone https://github.com/supertokens/supertokens-root.git
+              run: cd ../ && git clone https://github.com/supertokens/supertokens-root.git && chmod a+w -R supertokens-root
             - name: Update Java 1
               run: update-alternatives --install "/usr/bin/java" "java" "/usr/java/jdk-15.0.1/bin/java" 2
             - name: Update Java 2
