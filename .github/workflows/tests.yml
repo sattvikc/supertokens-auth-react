@@ -31,7 +31,10 @@ jobs:
         name: Run tests
         timeout-minutes: 120
         runs-on: ubuntu-latest
-        container: rishabhpoddar/supertokens_website_sdk_testing_node_16
+        container: 
+          image: rishabhpoddar/supertokens_website_sdk_testing_node_16
+          options:
+            user: "node"
         steps:
             - name: Environment variables
               run: |
@@ -48,6 +51,7 @@ jobs:
               run: sed -i 's/AUTH0_EMAIL = "bradparishdoh@gmail.com"/AUTH0_EMAIL = "${{ secrets.AUTH0_EMAIL }}"/g' test/.env.js && sed -i 's/AUTH0_PASSWORD = "ow93jduDSje00asd"/AUTH0_PASSWORD = "${{ secrets.AUTH0_PASSWORD }}"/g' test/.env.js
             - name: Make git use https instead of ssh
               run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+            - run: ls -la
             - run: chmod a+w -R .
             - run: ls -la
             - run: whoami

@@ -21,8 +21,6 @@ function startFrontEnd () {
 }
 
 function killServers () {
-    cat test_report/logs/*
-
     echo "Kill servers."
     lsof -i tcp:8082 | grep node | awk '{printf $2}' | cut -c 1- | xargs -I {} kill -9 {} > /dev/null 2>&1
     lsof -i tcp:3031 | grep node | awk '{printf $2}' | cut -c 1- | xargs -I {} kill -9 {} > /dev/null 2>&1
