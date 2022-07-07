@@ -423,8 +423,12 @@ export const useOnMountAPICall = <T>(
                     void handleResponse(resp);
                 }
             } catch (err) {
-                if (!signal.aborted && handleError) {
-                    handleError(err, resp);
+                if (!signal.aborted) {
+                    if (handleError) {
+                        handleError(err, resp);
+                    } else {
+                        console.error(err);
+                    }
                 }
             }
         };
